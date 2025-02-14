@@ -1,7 +1,7 @@
 from datetime import datetime
 from typing import Annotated, List
 
-from sqlalchemy import Integer, func, String, ARRAY
+from sqlalchemy import Integer, func, String, ARRAY, Text
 from sqlalchemy.orm import DeclarativeBase, declared_attr, Mapped, mapped_column
 from sqlalchemy.ext.asyncio import AsyncAttrs, async_sessionmaker, create_async_engine
 
@@ -13,6 +13,7 @@ engine = create_async_engine(DATABASE_URL)
 async_session_maker = async_sessionmaker(engine, expire_on_commit=False)
 
 uniq_str = Annotated[str, mapped_column(unique=True)]
+content_an = Annotated[str | None, mapped_column(Text)]
 array_or_none = Annotated[List[str] | None, mapped_column(ARRAY(String))]
 
 
