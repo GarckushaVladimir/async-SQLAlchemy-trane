@@ -1,0 +1,51 @@
+from sqlalchemy import ForeignKey, text, JSON, Text
+from sqlalchemy.orm import Mapped, mapped_column
+from database import Base, uniq_str, array_or_none
+
+from sql_enums import GenderEnum, ProfessionsEnum, StatusPost, RatingEnum
+
+
+class User(Base):
+    username: Mapped[uniq_str]
+    email: Mapped[uniq_str]
+    password: Mapped[str]
+    profile_id: Mapped[int | None] = mapped_column(ForeignKey('profiles.id'))
+
+
+class Profile(Base):
+    first_name: Mapped[str]
+    second_name: Mapped[str | None]
+    age: Mapped[int | None]
+    gender: Mapped[GenderEnum]
+    profession: Mapped[ProfessionsEnum] = mapped_column(
+        default=ProfessionsEnum.DEVELOPER,
+        server_default=text("'UNEMPLOYED'")
+    )
+    interests: Mapped[array_or_none]
+    contacts: Mapped[dict | None] = mapped_column(JSON)
+
+
+class Post(Base):
+    title: Mapped[str]
+    content: Mapped[Text]
+    main_photo_url: Mapped[str]
+    photos_url: Mapped[array_or_none]
+    status: Mapped[StatusPost] = mapped_column(
+        default=StatusPost.PUBLISHED,
+        server_default=text("'DRAFT'")
+    )
+    user_id: Mapped[int] = mapped_column(ForeignKey("users.id"))
+
+
+class Comment(Base):
+    content: Mapped[Text]
+    user_id: Mapped[int] = mapped_column(ForeignKey("users.id"))
+    post_id: Mapped[int] = mapped_column(ForeignKey("posts.id"))
+    is_published: Mapped[bool] = mapped_column(
+        default=True,
+        server_default=text("'false'")
+    )
+    rating: Mapped[RatingEnum] = mapped_column(
+        default=RatingEnum.FIVE,
+        server_default=text("'SEVEN'")
+    )
