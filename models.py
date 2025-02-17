@@ -9,7 +9,7 @@ class User(Base):
     username: Mapped[uniq_str]
     email: Mapped[uniq_str]
     password: Mapped[str]
-    profile_id: Mapped[int | None] = mapped_column(ForeignKey('profiles.id'))
+    # profile_id: Mapped[int | None] = mapped_column(ForeignKey('profiles.id'))
 
     profile: Mapped["Profile"] = relationship(
         "Profile",
@@ -42,6 +42,7 @@ class Profile(Base):
     )
     interests: Mapped[array_or_none]
     contacts: Mapped[dict | None] = mapped_column(JSON)
+    user_id: Mapped[int] = mapped_column(ForeignKey('users.id'), unique=True)
 
     user: Mapped["User"] = relationship(
         "User",
