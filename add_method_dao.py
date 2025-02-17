@@ -45,16 +45,16 @@ async def add_full_user(user_data: dict, session: AsyncSession):
     print(f"Добавлен новый пользователь с ID: {new_user.id}")
     return new_user.id
 
-user_data_bob = {
-    "username": "bob_smith1",
-    "email": "bob.smith1@example.com",
-    "password": "bobsecure456",
-    "first_name": "Bob",
-    "second_name": "Smith",
-    "age": 25,
-    "gender": GenderEnum.MALE,
-    "profession": ProfessionsEnum.DESIGNER,
-    "interests": ["gaming", "photography", "traveling"],
-    "contacts": {"phone": "+987654321", "email": "bob.smith@example.com"}
-}
-run(add_full_user(user_data=user_data_bob))
+# user_data_bob = {
+#     "username": "bob_smith1",
+#     "email": "bob.smith1@example.com",
+#     "password": "bobsecure456",
+#     "first_name": "Bob",
+#     "second_name": "Smith",
+#     "age": 25,
+#     "gender": GenderEnum.MALE,
+#     "profession": ProfessionsEnum.DESIGNER,
+#     "interests": ["gaming", "photography", "traveling"],
+#     "contacts": {"phone": "+987654321", "email": "bob.smith@example.com"}
+# }
+# run(add_full_user(user_data=user_data_bob))

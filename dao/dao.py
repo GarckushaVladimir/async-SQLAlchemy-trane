@@ -1,3 +1,5 @@
+from sqlalchemy import select
+
 from dao.base import BaseDAO
 from sqlalchemy.ext.asyncio import AsyncSession
 from models import User, Profile, Post, Comment
@@ -42,6 +44,26 @@ class UserDAO(BaseDAO):
         await session.commit()
 
         return user
+
+    @classmethod
+    async def get_all_users(cls, session: AsyncSession):
+        query = select(cls.model)
+
+        result = await session.execute(query)
+
+        records = result.scalars().all()
+
+        return records
+
+    @classmethod
+    async def get_username_id(cls, session: AsyncSession):
+        query = select(cls.model.id, cls.model.username)
+
+        result = await session.execute(query)
+
+        records = result.all()
+
+        return records
 
 
 class ProfileDAO(BaseDAO):
