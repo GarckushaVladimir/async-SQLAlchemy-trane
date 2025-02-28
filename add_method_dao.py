@@ -1,11 +1,8 @@
 from typing import List
 
 from dao.dao import UserDAO
-from database import connection
-from asyncio import run
+from dao.database import connection
 from sqlalchemy.ext.asyncio import AsyncSession
-
-from sql_enums import GenderEnum, ProfessionsEnum
 
 
 @connection

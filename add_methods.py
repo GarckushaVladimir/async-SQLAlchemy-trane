@@ -1,5 +1,5 @@
 from sqlalchemy.ext.asyncio import AsyncSession
-from database import connection
+from dao.session_maker import connection
 from asyncio import run
 from models import User, Profile
 from sql_enums import GenderEnum, ProfessionsEnum
@@ -112,6 +112,7 @@ async def get_user_by_id_example_3(username: str, email: str, password: str,
         await session.close()
         raise e
 
+
 # user_profile = run(get_user_by_id_example_2(
 #     username="john_doe12",
 #     email="john.doe12@example.com",
@@ -149,6 +150,7 @@ async def create_user_example_4(users_data: list[dict], session: AsyncSession) -
     session.add_all(users_list)
     await session.commit()
     return [user.id for user in users_list]
+
 
 users = [
     {"username": "michael_brown", "email": "michael.brown@example.com", "password": "pass1234"},

@@ -1,6 +1,6 @@
 from sqlalchemy import ForeignKey, text, JSON
 from sqlalchemy.orm import Mapped, mapped_column, relationship
-from database import Base, uniq_str, array_or_none, content_an
+from dao.database import Base, uniq_str, array_or_none, content_an
 
 from sql_enums import GenderEnum, ProfessionsEnum, StatusPost, RatingEnum
 
