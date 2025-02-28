@@ -2,7 +2,7 @@ from sqlalchemy import select
 
 from dao.base import BaseDAO
 from sqlalchemy.ext.asyncio import AsyncSession
-from models import User, Profile, Post, Comment
+from models.models import User, Profile, Post, Comment
 
 
 class UserDAO(BaseDAO[User]):

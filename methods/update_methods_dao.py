@@ -5,7 +5,7 @@ from sqlalchemy.exc import SQLAlchemyError
 from sqlalchemy.ext.asyncio import AsyncSession
 from dao.dao import UserDAO, ProfileDAO
 from dao.session_maker import connection
-from models import Profile
+from models.models import Profile
 
 
 @connection(commit=True)
@@ -55,7 +55,7 @@ async def update_age_mass(session: AsyncSession, new_age: int, second_name: str)
 
 @connection(commit=True)
 async def update_age_mass_dao(session: AsyncSession, new_age: int, second_name: str):
-    filter_creteria = create_model(
+    filter_criteria = create_model(
         'FilterModel',
         second_name=(str, ...)
     )
@@ -63,7 +63,7 @@ async def update_age_mass_dao(session: AsyncSession, new_age: int, second_name: 
         'ValuesModel',
         age=(int, ...)
     )
-    await ProfileDAO.update_many(session=session, filter_creteria=filter_creteria(second_name=second_name),
+    await ProfileDAO.update_many(session=session, filter_criteria=filter_criteria(second_name=second_name),
                                  values=values(age=new_age))
 
 asyncio.run(update_age_mass_dao(new_age=33, second_name='Smith'))
